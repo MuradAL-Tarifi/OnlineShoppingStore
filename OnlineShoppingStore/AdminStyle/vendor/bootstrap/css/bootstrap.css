@@ -97,7 +97,9 @@ abbr[data-original-title] {
   cursor: help;
   border-bottom: 0;
 }
-
+  .pull_right{
+      float:right !important;
+  }
 address {
   margin-bottom: 1rem;
   font-style: normal;
