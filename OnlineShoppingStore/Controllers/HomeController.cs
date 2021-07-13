@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using OnlineShoppingStore.DAL;
+using OnlineShoppingStore.Models;
+using OnlineShoppingStore.Models.Home;
+using OnlineShoppingStore.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +13,10 @@ namespace OnlineShoppingStore.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
-            return View();
+            HomeIndexViewModel model = new HomeIndexViewModel();
+            return View(model.CreateModel(search));
         }
 
         public ActionResult About()
@@ -20,11 +26,5 @@ namespace OnlineShoppingStore.Controllers
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
