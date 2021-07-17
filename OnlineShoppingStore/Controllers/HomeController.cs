@@ -37,11 +37,29 @@ namespace OnlineShoppingStore.Controllers
             {
                 List<Item> cart = (List<Item>)Session["cart"];
                 var product = ctx.Tbl_Product.Find(productId);
-                cart.Add(new Item()
+                foreach (var item in cart.ToList())
                 {
-                    Product = product,
-                    Quantity = 1
-                });
+                    if (item.Product.ProductId==productId)
+                    {
+                        int prevQty = item.Quantity;
+                        cart.Remove(item);
+                        cart.Add(new Item()
+                        {
+                            Product = product,
+                            Quantity = prevQty + 1
+                        });
+                        break;
+                    }
+                    else
+                    {
+                        cart.Add(new Item()
+                        {
+                            Product = product,
+                            Quantity = 1
+                        });
+                    }
+                }
+
                 Session["cart"] = cart;
             }
             return Redirect("Index");
