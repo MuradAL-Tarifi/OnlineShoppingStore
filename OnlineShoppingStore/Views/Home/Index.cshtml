@@ -1,4 +1,6 @@
 ﻿@model OnlineShoppingStore.Models.Home.HomeIndexViewModel
+@using PagedList;
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Home Page";
 }
@@ -79,29 +81,36 @@
                 <div class="caption">
                     <h5>@item.ProductName</h5>
                     <p>@item.Price $.</p>
-                    
-                        @if (item.Quantity > 0)
+
+                    @if (item.Quantity > 0)
+                    {
+                        using (Html.BeginForm("AddToCart", "Home", new { productId = item.ProductId }, FormMethod.Post))
                         {
+                            <button type="submit" class="pull-right"><i class="fa fa-shopping-cart"></i></button>
+                        }
                         <p>Available</p>
                     }
                     else
                     {
                         <p>Not Available</p>
                     }
-                       
-                <div class="product-item-badge">
-                    @if (item.IsFeatured == true)
-                    {
-                        <p>New</p>
-                    }
-                    else
-                    {
-                        <p>Old</p>
-                    }
-                </div>
+
+                    <div class="product-item-badge">
+                        @if (item.IsFeatured == true)
+                        {
+                            <p>New</p>
+                        }
+                        else
+                        {
+                            <p>Old</p>
+                        }
                     </div>
+                </div>
             </div>
         </div>
     }
-
+    
+</div>
+<div class="container">
+    @Html.PagedListPager(Model.ListOfProducts, page => Url.Action("Index", new { page, search = Request.QueryString["searchBy"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
 </div>
