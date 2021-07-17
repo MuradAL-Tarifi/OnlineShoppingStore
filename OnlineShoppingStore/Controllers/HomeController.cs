@@ -46,6 +46,20 @@ namespace OnlineShoppingStore.Controllers
             }
             return Redirect("Index");
         }
+        public ActionResult RemoveFromCart(int productId)
+        {
+            List<Item> cart = (List<Item>)Session["cart"];
+            foreach (var item in cart)
+            {
+                if (item.Product.ProductId == productId)
+                {
+                    cart.Remove(item);
+                    break;
+                }
+            }
+            Session["cart"] = cart;
+            return Redirect("Index");
+        }
 
     }
 }
