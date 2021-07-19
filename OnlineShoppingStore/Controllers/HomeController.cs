@@ -78,6 +78,15 @@ namespace OnlineShoppingStore.Controllers
             Session["cart"] = cart;
             return Redirect("Index");
         }
+        public ActionResult Checkout()
+        {
+            return View();
+        }
+
+        public ActionResult CheckoutDetails()
+        {
+            return View();
+        }
 
     }
 }
